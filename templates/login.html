@@ -1,25 +1,27 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
+{% extends 'layout.html' %}
+{% block titulo %}
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="static/style.css">
-</head>
+{% endblock %}
+
+{% block conteudo %}
 <body>
-<h1>Iniciar Sessão</h1>
+<h1>INICIAR SESSÃO</h1>
+
 <form method="post">
     <fieldset>
-        <legend>Introduza os seus dados</legend>
-        <h4>Utilizador</h4>
-        <input type='text' name="usr" required>
-        <h4>Palavra-Passe</h4>
-        <input type='password' name="pwd" required>
-        <p><br></p>
-        <input type="submit" value="Submeter">
+    <legend>Introduza os seus dados</legend>
+    <h2>Utilizador</h2>
+    <input type="text" name="usr" required>
+    <h2>Introduza a Palavra-Passe</h2>
+    <input type="password" name="pwd" required>
+    <p><br></p>
+    <input type="submit" value="Submeter">
     </fieldset>
 </form>
-{% if erro %}
-<h2>{{ erro }}</h2>
-{% endif %}
+
+{% if erro %}<h1>{{ erro }}</h1>{% endif %}
+
 </body>
-</html>
+{% endblock %}

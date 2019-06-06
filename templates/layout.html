@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+    {% block titulo %}
+    {% endblock %}
+
+
+    <div class="navbar">
+        <a class="active" href="/"><i class="fa fa-fw fa-home"></i> Home</a>
+        <a href="/registo"><i class="fa fa-fw fa-envelope"></i>Registo</a>
+        <a href="/login"><i class="fa fa-fw fa-user"></i> Login</a>
+        <a href="/newpass"><i class="fa fa-fw fa-search"></i>Alterar Senha</a>
+    </div>
+    {% block conteudo %}
+
+    {% endblock %}
+    <h3>© Copyright 2019 Hugo Ferreira</h3>
+</head>
+
+<body>
+</body>
+</html>
