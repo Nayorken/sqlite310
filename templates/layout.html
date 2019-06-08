@@ -8,22 +8,24 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
     {% block titulo %}
     {% endblock %}
+<body background="/static/website/1.jpg">
+    <header>
+        <div class="main">
+            <div class="logo">
+                <img src="/static/website/2.png">
+            </div>
+            <ul>
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Registo</a></li>
+                <li><a href="#">Eliminar Conta</a></li>
+                <li><a href="#">NewPass</a></li>
+            </ul>
+        </div>
+    </header>
 
-
-    <div class="navbar">
-        <a class="active" href="/"><i class="fa fa-fw fa-home"></i> Home</a>
-        <a href="/registo"><i class="fa fa-fw fa-envelope"></i>Registo</a>
-        <a href="/login"><i class="fa fa-fw fa-user"></i> Login</a>
-        <a href="/newpass"><i class="fa fa-fw fa-search"></i>Alterar Senha</a>
-        <a href="/apagar"><i class="fa fa-fw fa-search"></i>Eliminar Conta</a>
-
-    </div>
     {% block conteudo %}
 
     {% endblock %}
-    <h3>© Copyright 2019 Hugo Ferreira</h3>
 </head>
-
-<body>
 </body>
 </html>
