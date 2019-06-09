@@ -1,26 +1,23 @@
 {% extends 'layout.html' %}
 {% block titulo %}
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="static/style.css">
+<meta charset="UTF-8">
+<title>Title</title>
+<link rel="stylesheet" type="text/css" href="static/style.css">
 {% endblock %}
 
 {% block conteudo %}
 <body>
-<h1>INICIAR SESSÃO</h1>
-
-<form method="post">
-    <fieldset>
-    <legend>Introduza os seus dados</legend>
-    <h2>Utilizador</h2>
-    <input type="text" name="usr" required>
-    <h2>Introduza a Palavra-Passe</h2>
-    <input type="password" name="pwd" required>
-    <p><br></p>
-    <input type="submit" value="Submeter">
-    </fieldset>
-</form>
-
+<div class="login-box">
+    <img src="static/imm/avatar.png" class="avatar">
+    <form method="post">
+            <h2>Utilizador</h2>
+            <input type="text" name="usr" required>
+            <h2>Introduza a Palavra-Passe</h2>
+            <input type="password" name="pwd" required>
+            <p><br></p>
+            <input type="submit" value="Submeter">
+    </form>
+</div>
 {% if erro %}<h1>{{ erro }}</h1>{% endif %}
 
 </body>
