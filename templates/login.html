@@ -10,15 +10,19 @@
 <div class="login-box">
     <img src="static/imm/avatar.png" class="avatar">
     <form method="post">
-            <h2>Utilizador</h2>
-            <input type="text" name="usr" required>
-            <h2>Introduza a Palavra-Passe</h2>
-            <input type="password" name="pwd" required>
-            <p><br></p>
-            <input type="submit" value="Submeter">
+        <h3>Utilizador</h3>
+        <input type="text" name="usr" required>
+        <h3>Introduza a Palavra-Passe</h3>
+        <input type="password" name="pwd" required>
+        <p><br></p>
+        <input type="submit" value="Submeter">
+        <p><br></p>
+        {% if erro %}<h1>{{ erro }}</h1>{% endif %}
     </form>
 </div>
-{% if erro %}<h1>{{ erro }}</h1>{% endif %}
+
 
 </body>
+
 {% endblock %}
+

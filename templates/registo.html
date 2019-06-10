@@ -1,30 +1,29 @@
 {% extends 'layout.html' %}
 {% block titulo %}
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="static/style.css">
+<meta charset="UTF-8">
+<title>Title</title>
+<link rel="stylesheet" type="text/css" href="static/style.css">
 <body>
 {% endblock %}
 
-
-
 {% block conteudo %}
-<h1>CRIAR NOVO UTILIZADOR</h1>
-<form method="post">
-    <fieldset>
-    <legend>Introduza os seus dados</legend>
-    <h2>Utilizador</h2>
-    <input type="text" name="usr" required>
-    <h2>Introduza a Palavra-Passe</h2>
-    <input type="password" name="pwd" required>
-    <h2>Confirme a Palavra-Passe</h2>
-    <input type="password" name="cpwd" required>
-    <p><br></p>
-    <input type="submit" value="Submeter">
-    </fieldset>
-</form>
+<div class="login-box">
+    <img src="static/imm/avatar.png" class="avatar">
+    <form method="post">
+        <h3>Utilizador</h3>
+        <input type="text" name="usr" required>
+        <h3>Introduza a Palavra-Passe</h3>
+        <input type="password" name="pwd" required>
+        <h3>Confirme a Palavra-Passe</h3>
+        <input type="password" name="cpwd" required>
+        <br>
+        <input type="submit" value="Submeter">
+        <center>
+        {% if erro %}<h4>{{ erro }}</h4>{% endif %}
+        </center>
+    </form>
+</div>
 
-{% if erro %}<h1>{{ erro }}</h1>{% endif %}
 
 </body>
 {% endblock %}
