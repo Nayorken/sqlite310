@@ -1,25 +1,20 @@
 from flask import Flask, render_template, request
-
 app = Flask(__name__)
 
-
 def gravar(v1, v2):
-    import sqlite3
-    ficheiro = sqlite3.connect('db/Utilizadores.db')
+    ficheiro = herokudb()
     db = ficheiro.cursor()
-    db.execute("CREATE TABLE IF NOT EXISTS usr (usr txt, pwd txt)")
-    db.execute("INSERT INTO usr VALUES (?,?)", (v1, v2))
+    db.execute("CREATE TABLE IF NOT EXISTS usr (usr text, pwd text)")
+    db.execute("INSERT INTO usr VALUES ( %s, %s)", (v1, v2))
     ficheiro.commit()
     ficheiro.close()
     return
 
 
 def alterar(v1, v2):
-    import sqlite3
-    ficheiro = sqlite3.connect('db/Utilizadores.db')
+    ficheiro = herokudb()
     db = ficheiro.cursor()
-    db.execute("CREATE TABLE IF NOT EXISTS usr (usr txt, pwd txt)")
-    db.execute("UPDATE usr SET pwd = ? WHERE usr = ?", (v2, v1))
+    db.execute("UPDATE usr SET pwd = %s WHERE usr = %s", (v2, v1))
     ficheiro.commit()
     ficheiro.close()
     return
@@ -28,9 +23,9 @@ def alterar(v1, v2):
 def existe(v1):
     try:
         import sqlite3
-        ficheiro = sqlite3.connect('db/Utilizadores.db')
+        ficheiro = sqlite3.connect('db/Utilizador.db')
         db = ficheiro.cursor()
-        db.execute("SELECT * FROM usr WHERE usr = ? ", (v1,))
+        db.execute("SELECT * FROM usr WHERE usr = %s", (v1,))
         valor = db.fetchone()
         ficheiro.close()
     except:
@@ -39,92 +34,91 @@ def existe(v1):
 
 
 def eliminar(v1):
-    import sqlite3
-    ficheiro = sqlite3.connect('db/Utilizadores.db')
+    ficheiro = herokudb()
     db = ficheiro.cursor()
-    db.execute("DELETE FROM usr WHERE usr = ? ", (v1,))
+    db.execute("DELETE FROM usr WHERE usr = %s", (v1,))
     ficheiro.commit()
     ficheiro.close()
     return
 
 
 def log(v1, v2):
-    import sqlite3
-    ficheiro = sqlite3.connect('db/Utilizadores.db')
+    ficheiro = herokudb()
     db = ficheiro.cursor()
-    db.execute("SELECT * FROM usr WHERE usr = ? and pwd = ? ", (v1, v2,))
+    db.execute("SELECT * FROM usr WHERE usr = %s and pwd = %s", (v1, v2,))
     valor = db.fetchone()
     ficheiro.close()
     return valor
 
 
-@app.route('/newpass', methods=['GET', 'POST'])
+@app.route('/newpass', methods=['POST', 'GET'])
 def newpass():
     erro = None
-    if request.method == 'POST':
+    if request.method == "POST":
         v1 = request.form['usr']
         v2 = request.form['pwd']
         v3 = request.form['cpwd']
         if not existe(v1):
-            erro = 'O utilizador não existe.'
+            erro = 'O Utilizador não existe.'
         elif v2 != v3:
             erro = 'A palavra passe não coincide.'
         else:
             alterar(v1, v2)
+            erro = 'A palavra passe foi alterada.'
     return render_template('newpass.html', erro=erro)
 
 
-@app.route('/registo', methods=['GET', 'POST'])
+@app.route('/registo', methods=['POST', 'GET'])
 def registo():
     erro = None
-    if request.method == 'POST':
+    if request.method == "POST":
         v1 = request.form['usr']
         v2 = request.form['pwd']
         v3 = request.form['cpwd']
         if existe(v1):
-            erro = 'O utilizador já existe.'
+            erro = 'O Utilizador já existe.'
         elif v2 != v3:
             erro = 'A palavra passe não coincide.'
         else:
             gravar(v1, v2)
-            erro = 'Utilizador  registado com sucesso'
+            erro = 'Utilizador registado com Sucesso.'
     return render_template('registo.html', erro=erro)
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
+@app.route('/login', methods=['POST', 'GET'])
 def login():
     erro = None
-    if request.method == 'POST':
+    if request.method == "POST":
         v1 = request.form['usr']
         v2 = request.form['pwd']
         if not existe(v1):
-            erro = 'O utilizador não existe.'
+            erro = 'O Utilizador não existe.'
         elif not log(v1, v2):
-            erro = 'A palavra passe incorreta.'
+            erro = 'A senha está incorreta.'
         else:
-            erro = 'Bem Vindo!'
+            erro = 'Bem-vindo.'
     return render_template('login.html', erro=erro)
 
 
-@app.route('/apagar', methods=['GET', 'POST'])
+@app.route('/apagar', methods=['POST', 'GET'])
 def apagar():
     erro = None
-    if request.method == 'POST':
+    if request.method == "POST":
         v1 = request.form['usr']
         v2 = request.form['pwd']
         if not existe(v1):
-            erro = 'O utilizador não existe.'
+            erro = 'O Utilizador não existe.'
         elif not log(v1, v2):
-            erro = 'A palavra passe incorreta.'
+            erro = 'A senha está incorreta.'
         else:
             eliminar(v1)
-            erro = 'Conta eliminada com sucesso'
+            erro = 'Conta eliminada com Sucesso.'
     return render_template('apagar.html', erro=erro)
-
-
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    return render_template('index.html')
 
 
 if __name__ == '__main__':
